@@ -39,6 +39,7 @@ function calcualtewpm() {
 
 window.addEventListener("keydown", (e) => {
   if (isTimerStated) {
+    // console.log(e.keyCode);
     var charCode = e.keyCode;
     if (
       (charCode > 64 && charCode < 91) ||
@@ -84,10 +85,10 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-const getRandomQuote = () => {
-  return fetch(RANDOM_QUOTE_API_URL)
-    .then((response) => response.json())
-    .then((data) => data.content);
+const getRandomQuote = async () => {
+  let getdata= await fetch(RANDOM_QUOTE_API_URL);
+  let data= await getdata.json();
+  return data.content;
 };
 
 function correctStrokes() {
@@ -100,6 +101,7 @@ function correctStrokes() {
 
 const renderNewQuote = async () => {
   quote = await getRandomQuote();
+  // console.log(quote);
   if (isTimerStated) {
     stopTimer();
     startTimer();
